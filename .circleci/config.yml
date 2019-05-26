@@ -26,8 +26,8 @@ jobs:
       - store_test_results:
           path: /tmp/target/surefire-reports
 
-      - store_artifacts:
-          root: spring-sample-circleCI
+      - persist_to_workspace:
+          root: "spring-sample-circleCI"
           paths:
             - "Dockerfile"
             - target/*
