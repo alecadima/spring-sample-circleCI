@@ -32,6 +32,8 @@ jobs:
   docker-image:
     machine: true
 
+    working_directory: ~/spring-sample-circleCI
+
     steps:
 
       - checkout
