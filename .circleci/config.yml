@@ -27,6 +27,7 @@ jobs:
           path: /tmp/target/surefire-reports
 
       - persist_to_workspace:
+          root: /tmp/circleci
           paths:
             - "Dockerfile"
             - target/*
