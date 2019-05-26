@@ -27,7 +27,6 @@ jobs:
           path: /tmp/target/surefire-reports
 
       - persist_to_workspace:
-          root: "spring-sample-circleCI"
           paths:
             - "Dockerfile"
             - target/*
@@ -43,7 +42,7 @@ jobs:
       - setup_remote_docker
 
       - attach_workspace:
-          at: /tmp/circleci/spring-sample-circleCI
+          at: /tmp/circleci
 
       - run:
           name: docker-image
