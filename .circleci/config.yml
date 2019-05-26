@@ -35,6 +35,9 @@ jobs:
   docker-image:
     working_directory: /tmp/circleci
 
+    docker:
+      - image: circleci/golang
+
     steps:
 
       - setup_remote_docker
