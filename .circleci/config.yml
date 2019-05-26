@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
 
-    working_directory: ~/spring-sample-circleCI
+    working_directory: /tmp/circleci
 
     docker:
       - image: circleci/openjdk:11-jdk-browsers
@@ -27,22 +27,26 @@ jobs:
           path: target/surefire-reports
 
       - store_artifacts:
-          path: target/demo-0.0.1-SNAPSHOT.jar
+          root: spring-sample-circleCI
+          path:
+            - target/demo-0.0.1-SNAPSHOT.jar
+            - "Dockerfile"
 
   docker-image:
-    machine: true
-
-    working_directory: ~/spring-sample-circleCI
+    working_directory: /tmp/circleci
 
     steps:
 
-      - checkout
+      - setup_remote_docker
+
+      - attach_workspace:
+          at: /tmp/circleci/spring-sample-circleCI
 
       - run:
           name: docker-image
           command: |
             TAG=latest
-            IMAGE=application_name
+            IMAGE=demo
             docker build -t $IMAGE:$TAG .
             docker login $DOCKER_REGISTRY -u $DOCKER_REGISTRY_USER -p $DOCKER_REGISTRY_PASSWORD
             docker tag $IMAGE:$TAG $DOCKER_REGISTRY/$IMAGE:$TAG

@@ -1,9 +1,11 @@
 FROM openjdk:11
 
-ADD target/demo-0.0.1-SNAPSHOT.jar demo.jar
+RUN mkdir -p /usr/local/app
 
-RUN sh -c 'touch demo.jar'
+WORKDIR /usr/local/app
+
+COPY spring-sample-circleCI/target/demo-0.0.1-SNAPSHOT.jar /usr/local/app/
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom","-Dspring.profiles.active=docker", "-jar","/demo.jar"]
+ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom","-Dspring.profiles.active=docker", "-jar","*.jar"]
